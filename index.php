@@ -3,46 +3,47 @@
 $show_complete_tasks = rand(0, 1);
 $projects = ['Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
 $index = 0;
-$num_count = count($projects);
+$project_count = count($projects);
 $tasks = [
     [
-    'name' => 'Собеседование в IT компании',
-    'date' => '01.12.2018',
-    'category' => 'Работа',
+    'title' => 'Собеседование в IT компании',
+    'deadline' => '01.12.2018',
+    'category' => $projects[2],
     'isDone' => false
     ],
     [
-    'name' => 'Выполнить тестовое задание',
-    'date' => '25.12.2018',
-    'category' => 'Работа',
+    'title' => 'Выполнить тестовое задание',
+    'deadline' => '25.12.2018',
+    'category' => $projects[2],
     'isDone' => false
     ],
     [
-    'name' => 'Сделать задание первого раздела',
-    'date' => '21.12.2018',
-    'category' => 'Учеба',
+    'title' => 'Сделать задание первого раздела',
+    'deadline' => '21.12.2018',
+    'category' => $projects[1],
     'isDone' => true
     ],
     [
-    'name' => 'Встреча с другом',
-    'date' => '22.12.2018',
-    'category' => 'Входящие',
+    'title' => 'Встреча с другом',
+    'deadline' => '22.12.2018',
+    'category' => $projects[0],
     'isDone' => false
     ],
     [
-    'name' => 'Купить корм для кота',
-    'date' => 'Нет',
-    'category' => 'Домашние дела',
+    'title' => 'Купить корм для кота',
+    'deadline' => 'Нет',
+    'category' => $projects[3],
     'isDone' => false
     ],
     [
-    'name' => 'Заказать пиццу',
-    'date' => 'Нет',
-    'category' => 'Домашние дела',
+    'title' => 'Заказать пиццу',
+    'deadline' => 'Нет',
+    'category' => $projects[3],
     'isDone' => false
     ]
-]
+];
 ?>
+
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -80,14 +81,13 @@ $tasks = [
                 </div>
             </div>
         </header>
-
         <div class="content">
             <section class="content__side">
                 <h2 class="content__side-heading">Проекты</h2>
 
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
-                        <?php while($index < $num_count): ?>
+                        <?php while($index < $project_count): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?=$projects[$index];?></a>
                             <span class="main-navigation__list-item-count">0</span>
@@ -135,7 +135,7 @@ $tasks = [
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"
                                 <?php if ($item['isDone']): ?>checked<?php endif; ?>>
-                                <span class="checkbox__text"><?=$item['name']; ?></span>
+                                <span class="checkbox__text"><?=$item['title']; ?></span>
                             </label>
                         </td>
 
@@ -143,7 +143,7 @@ $tasks = [
                             <a class="download-link" href="#"><?=$item['category']; ?>.psd</a>
                         </td>
 
-                        <td class="task__date"><?=$item['date']; ?></td>
+                        <td class="task__date"><?=$item['deadline']; ?></td>
                     </tr>
                     <?php endif; ?>
                     <?php endforeach; ?>
