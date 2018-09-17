@@ -42,8 +42,17 @@ $tasks = [
     'isDone' => false
     ]
 ];
-?>
 
+function count_tasks($array_tasks, $project_name) {
+    $task_count = 0;
+    foreach ($array_tasks as $key => $task) {
+        if ($task['category'] === $project_name) {
+            $task_count = $task_count + 1;
+        }
+    }
+    return $task_count;
+}
+?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -90,7 +99,7 @@ $tasks = [
                         <?php while($index < $project_count): ?>
                         <li class="main-navigation__list-item">
                             <a class="main-navigation__list-item-link" href="#"><?=$projects[$index];?></a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <span class="main-navigation__list-item-count"><?= count_tasks($tasks, $projects[$index]) ?></span>
                         </li>
                         <?php $index = $index + 1; ?>
                         <?php endwhile; ?>
