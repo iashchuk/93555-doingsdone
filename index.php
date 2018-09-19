@@ -2,8 +2,7 @@
 // показывать или нет выполненные задачи
 $show_complete_tasks = rand(0, 1);
 $projects = ['Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
-$index = 0;
-$project_count = count($projects);
+
 $tasks = [
     [
     'title' => 'Собеседование в IT компании',
@@ -43,9 +42,9 @@ $tasks = [
     ]
 ];
 
-function count_tasks($array_tasks, $project_name) {
+function get_count_tasks($array_tasks, $project_name) {
     $task_count = 0;
-    foreach ($array_tasks as $key => $task) {
+    foreach ($array_tasks as $task) {
         if ($task['category'] === $project_name) {
             $task_count = $task_count + 1;
         }
@@ -96,13 +95,12 @@ function count_tasks($array_tasks, $project_name) {
 
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
-                        <?php while($index < $project_count): ?>
+                        <?php foreach ($projects as $item): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?=$projects[$index];?></a>
-                            <span class="main-navigation__list-item-count"><?= count_tasks($tasks, $projects[$index]) ?></span>
+                            <a class="main-navigation__list-item-link" href="#"><?=$item;?></a>
+                            <span class="main-navigation__list-item-count"><?= get_count_tasks($tasks, $item) ?></span>
                         </li>
-                        <?php $index = $index + 1; ?>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </ul>
                 </nav>
 
@@ -137,7 +135,7 @@ function count_tasks($array_tasks, $project_name) {
                 </div>
 
                 <table class="tasks">
-                    <?php foreach ($tasks as $key => $item): ?>
+                    <?php foreach ($tasks as $item): ?>
                     <?php if ($show_complete_tasks === 1 || !$item['isDone']): ?>
                     <tr class="tasks__item task <?php if ($item['isDone']): ?>task--completed<?php endif; ?>">
                         <td class="task__select">
