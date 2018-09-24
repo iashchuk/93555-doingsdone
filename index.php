@@ -45,23 +45,24 @@ $tasks = [
     ]
 ];
 
-    $page_content = include_template (
-        'index.php',
-        [
-            'show_complete_tasks' => $show_complete_tasks,
-            'tasks' => $tasks
-        ]
-    );
+$page_content = include_template (
+    'index.php',
+    [
+        'show_complete_tasks' => $show_complete_tasks,
+        'tasks' => $tasks
+    ]
+);
 
-    $layout_content = include_template (
-        'layout.php',
-        [
-            'tasks' => $tasks,
-            'projects' => $projects,
-            'page_content' => $page_content,
-            'title' => 'Дела в порядке'
-        ]
-    );
+$layout_content = include_template (
+    'layout.php',
+    [
+        'tasks' => $tasks,
+        'projects' => $projects,
+        'page_content' => $page_content,
+        'title' => 'Дела в порядке',
+        'user_name' => 'Константин'
+    ]
+);
 
-    print ($layout_content);
+print ($layout_content);
 ?>
