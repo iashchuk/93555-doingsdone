@@ -1,16 +1,19 @@
 <?php
+
  function include_template($name, $data) {
-    $name = 'templates/' . $name;
+    $name = TEMPLATE_PATH . $name . TEMPLATE_EXTENSION;
     $result = '';
-     if (!file_exists($name)) {
+
+    if (!file_exists($name)) {
         return $result;
     }
+
     ob_start();
-    extract($data);
+    extract($data, EXTR_PREFIX_INVALID, 'prefix');
     require_once $name;
 
     $result = ob_get_clean();
- return $result;
+    return $result;
 }
 
 function get_count_tasks($array_tasks, $project_name) {
@@ -21,11 +24,6 @@ function get_count_tasks($array_tasks, $project_name) {
         }
     }
     return $task_count;
-}
-
- function esc($str) {
-    $title = strip_tags($str);
-    return $title;
 }
 
 function markTaskImportant($task) {

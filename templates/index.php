@@ -33,7 +33,7 @@
             <label class="checkbox task__checkbox">
                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"
                 <?php if ($item['isDone']): ?>checked<?php endif; ?>>
-                <span class="checkbox__text"><?=esc($item['title']); ?></span>
+                <span class="checkbox__text"><?=strip_tags($item['title']); ?></span>
             </label>
         </td>
         <td class="task__file">
