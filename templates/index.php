@@ -26,7 +26,9 @@
 <table class="tasks">
     <?php foreach ($tasks as $item): ?>
     <?php if ($show_complete_tasks === 1 || !$item['isDone']): ?>
-    <tr class="tasks__item task <?php if ($item['isDone']): ?>task--completed<?php endif; ?>">
+    <tr class="tasks__item task
+        <?=$item['isDone'] ? 'task--completed' : '' ?>
+        <?=markTaskImportant($item); ?>">
         <td class="task__select">
             <label class="checkbox task__checkbox">
                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"
@@ -34,11 +36,9 @@
                 <span class="checkbox__text"><?=esc($item['title']); ?></span>
             </label>
         </td>
-
         <td class="task__file">
             <a class="download-link" href="#"><?=$item['category']; ?>.psd</a>
         </td>
-
         <td class="task__date"><?=$item['deadline']; ?></td>
     </tr>
     <?php endif; ?>

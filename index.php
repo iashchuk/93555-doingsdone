@@ -15,7 +15,7 @@ $tasks = [
     ],
     [
     'title' => 'Выполнить тестовое задание',
-    'deadline' => '25.12.2018',
+    'deadline' => '24.09.2018',
     'category' => $projects[2],
     'isDone' => false
     ],
@@ -33,13 +33,13 @@ $tasks = [
     ],
     [
     'title' => 'Купить корм для кота',
-    'deadline' => 'Нет',
+    'deadline' => null,
     'category' => $projects[3],
     'isDone' => false
     ],
     [
     'title' => 'Заказать пиццу',
-    'deadline' => 'Нет',
+    'deadline' => null,
     'category' => $projects[3],
     'isDone' => false
     ]
