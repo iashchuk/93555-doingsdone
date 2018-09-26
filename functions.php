@@ -26,20 +26,15 @@ function get_count_tasks($array_tasks, $project_name) {
     return $task_count;
 }
 
-function markTaskImportant($task) {
+function mark_task_important ($task) {
     if ($task["deadline"] === null) {
-        return '';
+        return false;
     }
 
-    $secs_in_day = 86400;
     $current_time = time();
     $deadline = strtotime($task["deadline"]);
-    $days_until_deadline = floor(($deadline - $current_time) / $secs_in_day);
+    $days_until_deadline = floor(($deadline - $current_time) / SECS_IN_DAY);
 
-    if ($days_until_deadline === 0 || (!$task['isDone'] && $days_until_deadline < 0)) {
-        return "task--important";
-    } else {
-        return '';
-    }
+    return ($days_until_deadline === 0 || (!$task['isDone'] && $days_until_deadline < 0));
 }
- ?>
+
