@@ -1,24 +1,24 @@
-CREATE DATABASE doingsdone
+CREATE DATABASE doingsdone_manual
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
-USE doingsdone;
+USE doingsdone_manual;
 
 CREATE TABLE project (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  name CHAR(64) NOT NULL,
+  title CHAR(64) NOT NULL,
   author CHAR(64) NOT NULL,
   user_id INT NOT NULL
 );
 
 CREATE TABLE task (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  name CHAR(64) NOT NULL,
+  title CHAR(64) NOT NULL,
   created DATE NOT NULL,
-  done DATE NOT NULL,
+  done DATE DEFAULT NULL,
   status INT DEFAULT 0,
   file CHAR(255) DEFAULT NULL,
-  deadline DATE NOT NULL,
+  deadline DATE DEFAULT NULL,
   user_id INT NOT NULL,
   project_id INT NOT NULL
 
