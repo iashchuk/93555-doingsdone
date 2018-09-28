@@ -1,6 +1,7 @@
 <?php
 
 require_once ('./config.php');
+require_once ('./constants.php');
 require_once ('./functions.php');
 require_once ('./data.php');
 
@@ -25,4 +26,5 @@ $layout_content = include_template (
 );
 
 print ($layout_content);
+
 ?>

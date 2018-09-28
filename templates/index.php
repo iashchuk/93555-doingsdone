@@ -28,7 +28,7 @@
     <?php if ($show_complete_tasks === 1 || !$item['isDone']): ?>
     <tr class="tasks__item task
         <?=$item['isDone'] ? 'task--completed' : '' ?>
-        <?=markTaskImportant($item); ?>">
+        <?=mark_task_important($item) ? 'task--important' : ''; ?>">
         <td class="task__select">
             <label class="checkbox task__checkbox">
                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"
