@@ -4,14 +4,14 @@ CREATE DATABASE doingsdone_manual
 
 USE doingsdone_manual;
 
-CREATE TABLE project (
+CREATE TABLE projects (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   title CHAR(64) NOT NULL,
   author CHAR(64) NOT NULL,
   user_id INT NOT NULL
 );
 
-CREATE TABLE task (
+CREATE TABLE tasks (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   title CHAR(64) NOT NULL,
   created DATE NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE task (
 
 );
 
-CREATE TABLE user (
+CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   created DATE NOT NULL,
   email CHAR(64) NOT NULL,
@@ -33,5 +33,5 @@ CREATE TABLE user (
   contacts CHAR(255) NOT NULL
 );
 
-CREATE UNIQUE INDEX email ON user(email);
-CREATE INDEX task ON task(title);
+CREATE UNIQUE INDEX email ON users(email);
+CREATE INDEX task ON tasks(title);
