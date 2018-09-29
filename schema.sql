@@ -34,4 +34,4 @@ CREATE TABLE user (
 );
 
 CREATE UNIQUE INDEX email ON user(email);
-CREATE INDEX task ON task(name);
+CREATE INDEX task ON task(title);
