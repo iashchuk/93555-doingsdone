@@ -1,9 +1,9 @@
 <?php
 
-require_once ('./config.php');
-require_once ('./constants.php');
-require_once ('./functions.php');
-require_once ('./data.php');
+require_once ('./root/config.php');
+require_once ('./root/constants.php');
+require_once ('./root/functions.php');
+require_once ('./db/data.php');
 
 
 $page_content = include_template (
