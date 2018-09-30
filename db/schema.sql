@@ -1,37 +1,39 @@
-CREATE DATABASE doingsdone_manual
+CREATE DATABASE IF NOT EXISTS `doingsdone_manual`
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
-USE doingsdone_manual;
+USE `doingsdone_manual`;
 
-CREATE TABLE projects (
-  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  title CHAR(64) NOT NULL,
-  author CHAR(64) NOT NULL,
-  user_id INT NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `projects` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `title` CHAR(64) NOT NULL,
+  `author` CHAR(64) NOT NULL,
+  `user_id` INT NOT NULL
+) ENGINE = INNODB CHARACTER SET = utf8;
 
-CREATE TABLE tasks (
-  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  title CHAR(64) NOT NULL,
-  created DATE NOT NULL,
-  done DATE DEFAULT NULL,
-  status INT DEFAULT 0,
-  file CHAR(255) DEFAULT NULL,
-  deadline DATE DEFAULT NULL,
-  user_id INT NOT NULL,
-  project_id INT NOT NULL
+CREATE TABLE IF NOT EXISTS `tasks` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `title` VARCHAR(64) NOT NULL,
+  `created` DATETIME NOT NULL,
+  `done` DATETIME DEFAULT NULL,
+  `status` INT DEFAULT 0,
+  `file` VARCHAR(255) DEFAULT NULL,
+  `deadline` DATETIME DEFAULT NULL,
+  `user_id` INT NOT NULL,
+  `project_id` INT NOT NULL
 
-);
+) ENGINE = INNODB CHARACTER SET = utf8;
 
-CREATE TABLE users (
-  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  created DATE NOT NULL,
-  email CHAR(64) NOT NULL,
-  name CHAR(64) NOT NULL,
-  password CHAR(64) NOT NULL,
-  contacts CHAR(255) NOT NULL
-);
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  `created` DATETIME NOT NULL,
+  `email` VARCHAR(64) NOT NULL,
+  `name` VARCHAR(64) NOT NULL,
+  `password` CHAR(64) NOT NULL,
+  `contacts` VARCHAR(255) NOT NULL
+) ENGINE = INNODB CHARACTER SET = utf8;
 
-CREATE UNIQUE INDEX email ON users(email);
-CREATE INDEX task ON tasks(title);
+CREATE UNIQUE INDEX `email` ON `users`(`email`);
+CREATE INDEX `task` ON `tasks`(`title`);
+
+ALTER TABLE `projects` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
