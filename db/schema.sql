@@ -35,5 +35,3 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE UNIQUE INDEX `email` ON `users`(`email`);
 CREATE INDEX `task` ON `tasks`(`title`);
-
-ALTER TABLE `projects` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);

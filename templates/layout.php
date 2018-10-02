@@ -43,8 +43,8 @@
                     <ul class="main-navigation__list">
                         <?php foreach ($projects as $item): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="#"><?=$item;?></a>
-                            <span class="main-navigation__list-item-count"><?= get_count_tasks($tasks, $item) ?></span>
+                            <a class="main-navigation__list-item-link" href="#"><?=$item['title'];?></a>
+                            <span class="main-navigation__list-item-count"><?= get_count_tasks($tasks, $item['id']) ?></span>
                         </li>
                         <?php endforeach; ?>
                     </ul>

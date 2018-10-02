@@ -1,4 +1,4 @@
-USE doingsdone_manual;
+USE `doingsdone_manual`;
 
 /*Существующий список проектов*/
 INSERT INTO projects (title, author, user_id)
