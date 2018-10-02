@@ -4,14 +4,12 @@ require_once ('./root/config.php');
 require_once ('./root/constants.php');
 require_once ('./root/functions.php');
 require_once ('./root/db_connect.php');
-// require_once ('./db/data.php');
 
 $connect = mysqli_connect ($db['host'], $db['user'], $db['password'], $db['database']);
 mysqli_set_charset($connect, "utf8");
 
 if (!$connect) {
     $error = mysqli_connect_error();
-    $content = include_template('error.php', ['error' => error]);
     print("Ошибка подключения к базе данных " . $error);
 } else {
     print("Соединение установлено");
