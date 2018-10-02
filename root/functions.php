@@ -1,6 +1,8 @@
 <?php
 
- function include_template($name, $data) {
+$show_complete_tasks = rand(0, 1);
+
+function include_template($name, $data) {
     $name = TEMPLATE_PATH . $name . TEMPLATE_EXTENSION;
     $result = '';
 
@@ -16,10 +18,10 @@
     return $result;
 }
 
-function get_count_tasks($array_tasks, $project_name) {
+function get_count_tasks($array_tasks, $project) {
     $task_count = 0;
     foreach ($array_tasks as $task) {
-        if ($task['category'] === $project_name) {
+        if ($task['project_id'] === $project) {
             $task_count = $task_count + 1;
         }
     }
@@ -35,6 +37,11 @@ function mark_task_important ($task) {
     $deadline = strtotime($task["deadline"]);
     $days_until_deadline = floor(($deadline - $current_time) / SECS_IN_DAY);
 
-    return ($days_until_deadline === 0 || (!$task['isDone'] && $days_until_deadline < 0));
+    return ($days_until_deadline === 0 || (!$task['status'] && $days_until_deadline < 0));
+}
+
+function set_date_format($date) {
+    $date = date_create($date);
+    return date_format($date, "d.m.Y");
 }
 
