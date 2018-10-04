@@ -25,21 +25,21 @@
 
 <table class="tasks">
     <?php foreach ($tasks as $item): ?>
-    <?php if ($show_complete_tasks === 1 || !$item['isDone']): ?>
+    <?php if ($show_complete_tasks === 1 || !$item['status']): ?>
     <tr class="tasks__item task
-        <?=$item['isDone'] ? 'task--completed' : '' ?>
+        <?=$item['status'] ? 'task--completed' : '' ?>
         <?=mark_task_important($item) ? 'task--important' : ''; ?>">
         <td class="task__select">
             <label class="checkbox task__checkbox">
                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"
-                <?php if ($item['isDone']): ?>checked<?php endif; ?>>
+                <?php if ($item['status']): ?>checked<?php endif; ?>>
                 <span class="checkbox__text"><?=strip_tags($item['title']); ?></span>
             </label>
         </td>
         <td class="task__file">
-            <a class="download-link" href="#"><?=$item['category']; ?>.psd</a>
+            <a class="download-link" href="#">.psd</a>
         </td>
-        <td class="task__date"><?=$item['deadline']; ?></td>
+        <td class="task__date"><?=set_date_format($item['deadline']); ?></td>
     </tr>
     <?php endif; ?>
     <?php endforeach; ?>
