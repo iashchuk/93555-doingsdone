@@ -6,7 +6,7 @@ require_once ('./root/functions.php');
 require_once ('./root/db_connect.php');
 
 
-$sql_projects = "SELECT * FROM projects";
+$sql_projects = "SELECT `id`, `title` FROM projects";
 $result = mysqli_query($connect, $sql_projects);
 
 if($result) {
@@ -17,7 +17,7 @@ if($result) {
 }
 
 
-$sql_tasks = "SELECT * FROM tasks";
+$sql_tasks = "SELECT `id`, `title`, `created`, `status`, `deadline`, `user_id`, `project_id` FROM tasks";
 $result = mysqli_query($connect, $sql_tasks);
 
 if($result) {
@@ -34,11 +34,11 @@ if (isset($_GET['id'])) {
 
   $select_project = $_GET['id'];
 
-  $sql_active_project = "SELECT * FROM projects WHERE id = $select_project";
+  $sql_active_project = "SELECT `id`, `title` FROM projects WHERE id = $select_project";
   $result = mysqli_query($connect, $sql_active_project);
 
   if ($result) {
-    $sql_active_tasks = "SELECT * FROM tasks WHERE project_id = $select_project";
+    $sql_active_tasks = "SELECT `id`, `title`, `created`, `status`, `deadline`, `user_id`, `project_id` FROM tasks WHERE project_id = $select_project";
     $tasks = mysqli_query($connect, $sql_active_tasks);
    } else  {
      // header("HTTP/1.1 404 Not Found");
