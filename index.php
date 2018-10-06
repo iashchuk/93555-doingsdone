@@ -5,16 +5,6 @@ require_once ('./root/constants.php');
 require_once ('./root/functions.php');
 require_once ('./root/db_connect.php');
 
-$connect = mysqli_connect ($db['host'], $db['user'], $db['password'], $db['database']);
-mysqli_set_charset($connect, "utf8");
-
-if (!$connect) {
-    $error = mysqli_connect_error();
-    print("Ошибка подключения к базе данных " . $error);
-} else {
-    print("Соединение установлено");
-}
-
 
 $sql_projects = "SELECT * FROM projects";
 $result = mysqli_query($connect, $sql_projects);

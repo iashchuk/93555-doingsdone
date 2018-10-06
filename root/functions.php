@@ -21,9 +21,7 @@ function include_template($name, $data) {
 function get_count_tasks($array_tasks, $project) {
     $task_count = 0;
     foreach ($array_tasks as $task) {
-        if ($task['project_id'] === $project) {
-            $task_count = $task_count + 1;
-        }
+        ($task['project_id'] === $project) ? $task_count++ : $task_count ;
     }
     return $task_count;
 }
