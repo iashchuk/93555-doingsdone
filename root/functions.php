@@ -27,12 +27,12 @@ function get_count_tasks($array_tasks, $project) {
 }
 
 function mark_task_important ($task) {
-    if ($task["deadline"] === null) {
+    if ($task['deadline'] === null) {
         return false;
     }
 
     $current_time = time();
-    $deadline = strtotime($task["deadline"]);
+    $deadline = strtotime($task['deadline']);
     $days_until_deadline = floor(($deadline - $current_time) / SECS_IN_DAY);
 
     return ($days_until_deadline === 0 || (!$task['status'] && $days_until_deadline < 0));
@@ -40,6 +40,6 @@ function mark_task_important ($task) {
 
 function set_date_format($date) {
     $date = date_create($date);
-    return date_format($date, "d.m.Y");
+    return date_format($date, 'd.m.Y');
 }
 

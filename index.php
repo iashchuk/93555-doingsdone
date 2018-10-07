@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
         $tasks = DB_SELECT($connect, $sql_active_tasks);
     }
     else  {
-     // header("HTTP/1.1 404 Not Found");
+     // header('HTTP/1.1 404 Not Found');
         http_response_code(404);
     }
 }

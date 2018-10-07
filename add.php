@@ -15,11 +15,11 @@ $sql_tasks = get_tasks_query();
 $tasks = DB_SELECT($connect, $sql_tasks);
 
 $active_tasks = $tasks;
-$new_task["name"] = "";
+$new_task['name'] = '';
 $errors = [];
 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $new_task = $_POST;
     $errors = [];
@@ -30,43 +30,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $isFile = false;
 
-    if (isset($_FILES["preview"])) {
-        $file_name = $_FILES["preview"]["name"];
-        $file_path = __DIR__ . "/uploads/";
-        $file_url = "/uploads/" . $file_name;
+    if (isset($_FILES['preview'])) {
+        $file_name = $_FILES['preview']['name'];
+        $file_path = __DIR__ . '/uploads/';
+        $file_url = '/uploads/' . $file_name;
         $isFile = true;
     }
 
 
     if (empty($errors)) {
-        $new_task_name = $new_task["name"];
+        $new_task_name = $new_task['name'];
         if ($isFile) {
             $new_task_file = $file_path . $file_name;
         } else {
-            $new_task_file = "";
+            $new_task_file = '';
     }
 
-        $new_task_project = $new_task["project"];
-        $new_task_date = $new_task["date"];
-        if ($new_task_date === "") {
+        $new_task_project = $new_task['project'];
+        $new_task_date = $new_task['date'];
+        if ($new_task_date === '') {
             $new_task_date = null;
         };
 
         $insert_request = "INSERT INTO tasks SET
-            created = NOW(),
-            title = '$new_task_name',
-            file = '$new_task_file',
-            deadline =  '$new_task_date',
-            user_id = '$user_id',
-            project_id = '$new_task_project'
+            `created` = NOW(),
+            `title` = '$new_task_name',
+            `file` = '$new_task_file',
+            `deadline` =  '$new_task_date',
+            `user_id` = '$user_id',
+            `project_id` = '$new_task_project'
         ";
 
         $insert_result = DB_INSERT($connect, $insert_request);
         if ($insert_result) {
             if ($isFile) {
-                move_uploaded_file($_FILES["preview"]["tmp_name"], $file_path . $file_name);
+                move_uploaded_file($_FILES['preview']['tmp_name'], $file_path . $file_name);
             }
-            header("Location: /index.php");
+            header('Location: /index.php');
         }
     }
  }
@@ -74,10 +74,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $page_content = include_template(
     "form-task",
     [
-        "projects" => $projects,
-        "tasks" => $tasks,
-        "new_task" => $new_task,
-        "errors" => $errors
+        'projects' => $projects,
+        'tasks' => $tasks,
+        'new_task' => $new_task,
+        'errors' => $errors
     ]
 );
 
