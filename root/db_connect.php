@@ -8,41 +8,41 @@ if (!$connect) {
     die('Ошибка подключения к базе данных');
 }
 
+function show_mysql_error($connect) {
+    $error = mysqli_error($connect);
+    die('Ошибка при выполнении запроса к Базе данных');
+};
 
-function DB_INSERT($connect, $query) {
+function db_insert($connect, $query) {
     $result = true;
-    if ($connect == false) {
+    if ($connect === false) {
         print('Ошибка подключения к базе данных: ' . mysqli_connect_error());
         $result = false;
     }
     else {
-        mysqli_set_charset($connect, 'utf8');
         $mysqli = mysqli_query($connect, $query);
 
         if (!$mysqli) {
-            $error = mysqli_error($connect);
-            print('Ошибка при выполнении запроса к Базе данных: ' . $error);
+            show_mysql_error($connect);
             $result = false;
         }
     }
     return $result;
 };
 
- function DB_SELECT($connect, $query) {
+ function db_select($connect, $query) {
     $result = null;
-    if ($connect == false) {
+    if ($connect === false) {
         print('Ошибка подключения к базе данных: ' . mysqli_connect_error());
     }
     else {
-        mysqli_set_charset($connect, 'utf8');
         $mysqli = mysqli_query($connect, $query);
 
         if ($mysqli) {
             $result = mysqli_fetch_all($mysqli, MYSQLI_ASSOC);
         }
         else {
-            $error = mysqli_error($connect);
-            print('Ошибка при выполнении запроса к Базе данных: ' . $error);
+            show_mysql_error($connect);
         }
     }
     return $result;
