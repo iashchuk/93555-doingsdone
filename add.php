@@ -9,10 +9,10 @@ require_once ('./root/db_queries.php');
 $user_id = 1;
 
 $sql_projects = get_user_project_query($user_id);
-$projects = DB_SELECT($connect, $sql_projects);
+$projects = db_select($connect, $sql_projects);
 
 $sql_tasks = get_tasks_query();
-$tasks = DB_SELECT($connect, $sql_tasks);
+$tasks = db_select($connect, $sql_tasks);
 
 $active_tasks = $tasks;
 $new_task['name'] = '';
@@ -47,9 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
         $new_task_project = $new_task['project'];
+
         $new_task_date = $new_task['date'];
         if ($new_task_date === '') {
-            $new_task_date = null;
+            $new_task_date = 'NULL';
         };
 
         $insert_request = "INSERT INTO tasks SET
@@ -61,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             `project_id` = '$new_task_project'
         ";
 
-        $insert_result = DB_INSERT($connect, $insert_request);
+        $insert_result = db_insert($connect, $insert_request);
         if ($insert_result) {
             if ($isFile) {
                 move_uploaded_file($_FILES['preview']['tmp_name'], $file_path . $file_name);

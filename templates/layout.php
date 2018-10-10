@@ -43,7 +43,7 @@
                     <ul class="main-navigation__list">
                         <?php foreach ($projects as $item): ?>
                         <li class="main-navigation__list-item">
-                            <a class="main-navigation__list-item-link" href="/index.php?id=<?=$item['id'];?>"><?=$item['title'];?></a>
+                            <a class="main-navigation__list-item-link" href="/index.php?id=<?=$item['id'];?>"><?=strip_tags($item['title']);?></a>
                             <span class="main-navigation__list-item-count"><?= get_count_tasks($active_tasks, $item['id']) ?></span>
                         </li>
                         <?php endforeach; ?>
