@@ -49,3 +49,11 @@ function set_date_format($date) {
     $result = mysqli_query($connect, $sql);
     return $result;
  }
+
+ function register_user($connect, $register) {
+    $password = password_hash($register['password'], PASSWORD_DEFAULT);
+    $sql = 'INSERT INTO users (created, email, name, password, contacts) VALUES (NOW(), ?, ?, ?, "")';
+    $stmt = db_get_prepare_stmt($connect, $sql, [$register['email'], $register['name'], $password]);
+    $result = mysqli_stmt_execute($stmt);
+    return $result;
+ }
