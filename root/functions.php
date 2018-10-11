@@ -57,3 +57,11 @@ function set_date_format($date) {
     $result = mysqli_stmt_execute($stmt);
     return $result;
  }
+
+  function authorization_user($connect, $authorization) {
+    $email = mysqli_real_escape_string($connect, $authorization['email']);
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $res = mysqli_query($connect, $sql);
+    $session_array = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
+    return $session_array;
+}
