@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+
+
 $page_content = include_template(
     'register',
     $tpl_data
