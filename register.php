@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $new_user = register_user($connect, $register);
 
         if ($new_user) {
-            header('Location: /index.php');
+            header('Location: /auth.php');
         } else {
             show_mysql_error();
         }
@@ -48,6 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
+$container_with_sidebar = 'container--with-sidebar';
+
+$content_side = include_template('content-side', [
+    'projects' => $projects,
+]);
 
 $page_content = include_template(
     'register',
@@ -57,6 +62,9 @@ $page_content = include_template(
 $layout_content = include_template(
     'layout',
     [
+        'body_background' => '',
+        'container_with_sidebar' => $container_with_sidebar,
+        'content_side' => $content_side,
         'tasks' => $tasks,
         'active_tasks' => $active_tasks,
         'projects' => $projects,
