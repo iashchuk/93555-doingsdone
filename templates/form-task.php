@@ -28,8 +28,15 @@
            </div>
            <div class="form__row">
             <label class="form__label" for="date">Дата выполнения</label>
-             <input class="form__input form__input--date" type="date" name="date" id="date" value="<?=strip_tags($new_task["date"]); ?>" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
-          </div>
+            <input class="form__input form__input--date" type="date" name="date" id="date" value="<?=strip_tags($new_task["date"]); ?>" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
+            <?php if (isset($errors["date"])): ?>
+                <p class="form__message">
+                    <span class="error-message">
+                    <?=$errors["date"]; ?>
+                </span>
+                </p>
+            <?php endif; ?>
+            </div>
            <div class="form__row">
             <label class="form__label" for="preview">Файл</label>
              <div class="form__input-file">

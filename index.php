@@ -5,56 +5,59 @@ require_once ('./root/constants.php');
 require_once ('./root/functions.php');
 require_once ('./root/db_connect.php');
 require_once ('./root/db_queries.php');
+require_once ('./root/db_data.php');
+require_once ('./root/db_utils.php');
 
-
-$sql_projects = get_projects_query();
+$body_background = 'body-background';
+$sql_projects = get_user_project_query($user_id);
 $projects = db_select($connect, $sql_projects);
 
-$sql_tasks = get_tasks_query();
+$sql_tasks = get_user_tasks_query($user_id);
 $tasks = db_select($connect, $sql_tasks);
-$active_tasks = $tasks;
 
+if (!isset($_SESSION['user']))  {
 
-if (isset($_GET['id'])) {
+    $page_content = include_template(
+        'guest',
+        []
+    );
 
-    $select_project = $_GET['id'];
+    $layout_content = include_template(
+        'layout',
+        [
+            'tasks' => $tasks,
+            'active_tasks' => $active_tasks,
+            'projects' => $projects,
+            'body_background' => $body_background,
+            'container_with_sidebar' => '',
+            'content_side' => '',
+            'page_content' => $page_content,
+            'title' => 'Дела в порядке'
+        ]
+    );
+} else {
+    $content_side = include_template('content-side', [
+        'projects' => $projects,
+        'tasks' => $tasks,
+        'active_tasks' => $active_tasks,
+    ]);
 
-    $sql_active_project = get_select_project_query($select_project);
-    $result = db_select($connect, $sql_active_project);
-
-    if ($result) {
-        $sql_active_tasks = get_active_tasks_query($select_project);
-        $tasks = db_select($connect, $sql_active_tasks);
-    }
-    else  {
-     // header('HTTP/1.1 404 Not Found');
-        http_response_code(404);
-    }
-}
-
-else {
-    $tasks = $active_tasks;
-}
-
-
-$page_content = include_template (
-    'index',
-    [
+    $page_content = include_template('index', [
         'show_complete_tasks' => $show_complete_tasks,
-        'tasks' => $tasks
-    ]
-);
+        'tasks' => $tasks,
+    ]);
 
-$layout_content = include_template (
-    'layout',
-    [
+    $layout_content = include_template('layout', [
+        'body_background' => '',
+        'container_with_sidebar' => $container_with_sidebar,
+        'content_side' => $content_side,
+        'page_content' => $page_content,
         'tasks' => $tasks,
         'active_tasks' => $active_tasks,
         'projects' => $projects,
-        'page_content' => $page_content,
-        'title' => 'Дела в порядке',
-        'user_name' => 'Константин'
-    ]
-);
+         'title' => 'Дела в порядке'
+    ]);
+}
+
 
 print ($layout_content);
