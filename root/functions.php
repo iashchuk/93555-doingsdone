@@ -43,6 +43,10 @@ function set_date_format($date) {
     return date_format($date, 'd.m.Y');
 }
 
+function check_date($date, $format= 'Y-m-d'){
+    return $date === date($format, strtotime($date));
+}
+
  function check_email($connect, $register) {
     $email = mysqli_real_escape_string($connect, $register['email']);
     $sql = "SELECT id FROM users WHERE email = '$email'";
@@ -58,10 +62,18 @@ function set_date_format($date) {
     return $result;
  }
 
-  function authorization_user($connect, $authorization) {
-    $email = mysqli_real_escape_string($connect, $authorization['email']);
+  function auth_user($connect, $auth) {
+    $email = mysqli_real_escape_string($connect, $auth['email']);
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $res = mysqli_query($connect, $sql);
     $session_array = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
     return $session_array;
+}
+
+
+function add_task($new_task, $connect, $date, $file, $user) {
+    $sql = "INSERT INTO tasks (title, deadline, file, project_id, user_id) VALUES (?, ?, ?, ?, ?)";
+    $stmt = db_get_prepare_stmt($connect, $sql, [$new_task['name'], $date, $file, $new_task['project'], $user]);
+    $res = mysqli_stmt_execute($stmt);
+     return $res;
 }
