@@ -9,6 +9,3 @@ $db = [
     'password' => '',
     'database' => 'doingsdone_manual'
 ];
-
-$show_complete_tasks = rand(0, 1);
-// $user_id = 0;

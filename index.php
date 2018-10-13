@@ -9,6 +9,11 @@ require_once ('./root/db_data.php');
 require_once ('./root/db_utils.php');
 
 $body_background = 'body-background';
+$sql_projects = get_user_project_query($user_id);
+$projects = db_select($connect, $sql_projects);
+
+$sql_tasks = get_user_tasks_query($user_id);
+$tasks = db_select($connect, $sql_tasks);
 
 if (!isset($_SESSION['user']))  {
 
