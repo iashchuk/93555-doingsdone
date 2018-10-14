@@ -1,13 +1,13 @@
 USE `doingsdone_manual`;
 
 /*Существующий список проектов*/
-INSERT INTO projects (title, author, user_id)
+INSERT INTO projects (title, user_id)
 VALUES
-      ('Входящие', 'iashchuk', 1),
-      ('Учеба', 'iashchuk', 1),
-      ('Работа', 'iashchuk', 1),
-      ('Домашние дела', 'keks', 2),
-      ('Авто', 'keks', 2);
+      ('Входящие', 1),
+      ('Учеба', 1),
+      ('Работа', 1),
+      ('Домашние дела', 2),
+      ('Авто', 2);
 
 /*Придумайте пару пользователей*/
 INSERT INTO users (created, email, name, password, contacts)

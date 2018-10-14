@@ -10,7 +10,7 @@ require_once ('./root/db_data.php');
 $errors = [];
 $tpl_data = [];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $auth = $_POST['auth'];
     $required = ['email', 'password'];
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $user = auth_user($connect,  $auth);
 
-    if (empty($errors) and $user) {
+    if (empty($errors) && $user) {
         if (password_verify($auth['password'], $user['password'])) {
             $_SESSION['user'] = $user;
         } else {

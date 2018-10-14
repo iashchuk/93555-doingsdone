@@ -72,15 +72,15 @@ function check_date($date, $format= 'Y-m-d'){
 
 
 function add_task($new_task, $connect, $date, $file, $user) {
-    $sql = "INSERT INTO tasks (title, deadline, file, project_id, user_id) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO tasks (created, title, deadline, file, project_id, user_id) VALUES (NOW(), ?, ?, ?, ?, ?)";
     $stmt = db_get_prepare_stmt($connect, $sql, [$new_task['name'], $date, $file, $new_task['project'], $user]);
     $result = mysqli_stmt_execute($stmt);
     return $result;
 }
 
-function add_project($new_project, $connect, $author, $user) {
-    $sql = 'INSERT INTO projects (title, author, user_id) VALUES (?, ?, ?)';
-    $stmt = db_get_prepare_stmt($connect, $sql, [$new_project, $author, $user]);
+function add_project($new_project, $connect, $user) {
+    $sql = 'INSERT INTO projects (title, user_id) VALUES (?, ?)';
+    $stmt = db_get_prepare_stmt($connect, $sql, [$new_project, $user]);
     $result = mysqli_stmt_execute($stmt);
     return $result;
 }

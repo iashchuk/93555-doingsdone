@@ -10,7 +10,6 @@ $active_tasks = $tasks;
 
 
 if (isset($_GET['id'])) {
-
     $select_project = $_GET['id'];
 
     $sql_active_project = get_select_project_query($select_project);
@@ -25,6 +24,3 @@ if (isset($_GET['id'])) {
     }
 }
 
-else {
-    $tasks = $active_tasks;
-}

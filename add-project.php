@@ -9,7 +9,7 @@ require_once ('./root/db_data.php');
 $value = [];
 $errors = [];
 
- if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_project = $_POST['project'];
     $new_project_title = $new_project['title'];
 
@@ -25,7 +25,7 @@ $errors = [];
 
     if (!count($errors) && isset($_SESSION['user'])) {
 
-        $result = add_project($new_project_title, $connect, $auth_author, $user_id);
+        $result = add_project($new_project_title, $connect, $user_id);
 
         if ($result) {
             header('Location: /');

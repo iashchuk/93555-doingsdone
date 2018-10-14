@@ -9,16 +9,16 @@
 <div class="tasks-controls">
     <nav class="tasks-switch">
         <a href="<?= set_filter("all"); ?>" class="tasks-switch__item
-        <?php if ($tasks_switch == null || $tasks_switch == "all"): ?>tasks-switch__item--active<?php endif; ?>">Все задачи</a>
+        <?php if ($task_filter === null || $task_filter == "all"): ?>tasks-switch__item--active<?php endif; ?>">Все задачи</a>
 
         <a href="<?= set_filter("today"); ?>" class="tasks-switch__item
-        <?php if ($tasks_switch == "today"): ?>tasks-switch__item--active<?php endif; ?>">Повестка дня</a>
+        <?php if ($task_filter === "today"): ?>tasks-switch__item--active<?php endif; ?>">Повестка дня</a>
 
         <a href="<?= set_filter("tomorrow"); ?>" class="tasks-switch__item
-        <?php if ($tasks_switch == "tomorrow"): ?>tasks-switch__item--active<?php endif; ?>">Завтра</a>
+        <?php if ($task_filter === "tomorrow"): ?>tasks-switch__item--active<?php endif; ?>">Завтра</a>
 
         <a href="<?= set_filter("delay"); ?>" class="tasks-switch__item
-        <?php if ($tasks_switch == "delay"): ?>tasks-switch__item--active<?php endif; ?>">Просроченные</a>
+        <?php if ($task_filter === "delay"): ?>tasks-switch__item--active<?php endif; ?>">Просроченные</a>
     </nav>
 
     <label class="checkbox">
@@ -54,18 +54,4 @@
     <?php endif; ?>
     <?php endforeach; ?>
 
-    <?php if ($show_complete_tasks): ?>
-        <tr class="tasks__item task task--completed">
-        <td class="task__select">
-            <label class="checkbox task__checkbox">
-            <input class="checkbox__input visually-hidden" type="checkbox" checked>
-            <span class="checkbox__text">Записаться на интенсив "Базовый PHP"</span>
-            </label>
-        </td>
-        <td class="task__date">10.10.2018</td>
-
-        <td class="task__controls">
-        </td>
-        </tr>
-    <?php endif; ?>
 </table>
