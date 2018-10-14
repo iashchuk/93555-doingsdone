@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $file = false;
 
- if (!empty($_FILES['preview']['name'])) {
+    if (isset($_FILES['preview'])) {
         $file_name = $_FILES['preview']['name'];
-        $file_path = _DIR_ . '/uploads/';
+        $file_path = __DIR__ . '/uploads/';
         $file_url = '/uploads/' . $file_name;
         $file = true;
     }
