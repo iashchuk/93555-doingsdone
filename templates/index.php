@@ -7,7 +7,7 @@
 </form>
 
 <div class="tasks-controls">
-    <nav class="tasks-switch">
+<nav class="tasks-switch">
         <a href="/" class="tasks-switch__item tasks-switch__item--active">Все задачи</a>
         <a href="/" class="tasks-switch__item">Повестка дня</a>
         <a href="/" class="tasks-switch__item">Завтра</a>
@@ -30,15 +30,19 @@
         <?=mark_task_important($item) ? 'task--important' : ''; ?>">
         <td class="task__select">
             <label class="checkbox task__checkbox">
-                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1"
+                <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="<?=$item["id"];?>"
                 <?php if ($item['status']): ?>checked<?php endif; ?>>
                 <span class="checkbox__text"><?=strip_tags($item['title']); ?></span>
             </label>
         </td>
         <td class="task__file">
-            <a class="download-link" href="#">.psd</a>
+            <?php if ($item['file'] !== null && $item['file'] !== ""): ?>
+                <a class="download-link" href="../uploads/<?= $item['file'] ?>"><?= $item['file'] ?></a>
+            <?php endif; ?>
         </td>
-        <td class="task__date"><?=set_date_format($item['deadline']); ?></td>
+        <td class="task__date">
+            <?=$item['deadline'] ? set_date_format($item['deadline']) : '' ?>
+        </td>
     </tr>
     <?php endif; ?>
     <?php endforeach; ?>
