@@ -22,7 +22,6 @@ $errors = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $new_task = $_POST;
-    $errors = [];
 
     if (empty($new_task['name'])) {
         $errors['name'] = 'Укажите название задачи';
