@@ -43,7 +43,7 @@
             </label>
         </td>
         <td class="task__file">
-            <?php if ($item['file'] !== null && $item['file'] !== ""): ?>
+            <?php if (isset($item['file']) && $item['file'] !== ""): ?>
                 <a class="download-link" href="../uploads/<?= $item['file'] ?>"><?= $item['file'] ?></a>
             <?php endif; ?>
         </td>

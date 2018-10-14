@@ -11,7 +11,7 @@ if (!$connect) {
     die('Ошибка подключения к базе данных');
 }
 
-$show_complete_tasks = rand(0, 1);
+$show_complete_tasks = 0;
 $user_id = 0;
 
 

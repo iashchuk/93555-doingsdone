@@ -8,13 +8,13 @@ require_once ('./root/db_queries.php');
 require_once ('./root/db_data.php');
 
 
-$sql_projects = get_user_project_query($user_id);
-$projects = db_select($connect, $sql_projects);
+// $sql_projects = get_user_project_query($user_id);
+// $projects = db_select($connect, $sql_projects);
 
-$sql_tasks = get_user_tasks_query($user_id);
-$tasks = db_select($connect, $sql_tasks);
+// $sql_tasks = get_user_tasks_query($user_id);
+// $tasks = db_select($connect, $sql_tasks);
 
-$active_tasks = $tasks;
+// $active_tasks = $tasks;
 $new_task['name'] = '';
 $errors = [];
 
@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $file = false;
 
-    if (isset($_FILES['preview'])) {
+ if (!empty($_FILES['preview']['name'])) {
         $file_name = $_FILES['preview']['name'];
-        $file_path = __DIR__ . '/uploads/';
+        $file_path = _DIR_ . '/uploads/';
         $file_url = '/uploads/' . $file_name;
         $file = true;
     }

@@ -1,10 +1,10 @@
 <?php
 require_once ('./root/db_utils.php');
 
-$sql_projects = get_projects_query();
+$sql_projects = get_user_project_query($user_id);
 $projects = db_select($connect, $sql_projects);
 
-$sql_tasks = get_tasks_query();
+$sql_tasks = get_user_tasks_query($user_id);
 $tasks = db_select($connect, $sql_tasks);
 $active_tasks = $tasks;
 
@@ -21,7 +21,6 @@ if (isset($_GET['id'])) {
         $tasks = db_select($connect, $sql_active_tasks);
     }
     else  {
-     // header('HTTP/1.1 404 Not Found');
         http_response_code(404);
     }
 }
