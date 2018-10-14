@@ -7,11 +7,18 @@
 </form>
 
 <div class="tasks-controls">
-<nav class="tasks-switch">
-        <a href="/" class="tasks-switch__item tasks-switch__item--active">Все задачи</a>
-        <a href="/" class="tasks-switch__item">Повестка дня</a>
-        <a href="/" class="tasks-switch__item">Завтра</a>
-        <a href="/" class="tasks-switch__item">Просроченные</a>
+    <nav class="tasks-switch">
+        <a href="<?= set_filter("all"); ?>" class="tasks-switch__item
+        <?php if ($tasks_switch == null || $tasks_switch == "all"): ?>tasks-switch__item--active<?php endif; ?>">Все задачи</a>
+
+        <a href="<?= set_filter("today"); ?>" class="tasks-switch__item
+        <?php if ($tasks_switch == "today"): ?>tasks-switch__item--active<?php endif; ?>">Повестка дня</a>
+
+        <a href="<?= set_filter("tomorrow"); ?>" class="tasks-switch__item
+        <?php if ($tasks_switch == "tomorrow"): ?>tasks-switch__item--active<?php endif; ?>">Завтра</a>
+
+        <a href="<?= set_filter("delay"); ?>" class="tasks-switch__item
+        <?php if ($tasks_switch == "delay"): ?>tasks-switch__item--active<?php endif; ?>">Просроченные</a>
     </nav>
 
     <label class="checkbox">
