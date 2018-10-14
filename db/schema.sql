@@ -36,3 +36,4 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE UNIQUE INDEX `email` ON `users`(`email`);
 CREATE INDEX `task` ON `tasks`(`title`);
+CREATE FULLTEXT INDEX `tasks_search` ON `tasks`(`title`);

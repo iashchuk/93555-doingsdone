@@ -9,6 +9,8 @@ require_once ('./root/db_data.php');
 require_once ('./root/db_utils.php');
 require_once ('./task-filter.php');
 require_once ('./task-status.php');
+require_once ('./task-search.php');
+
 
 $body_background = 'body-background';
 

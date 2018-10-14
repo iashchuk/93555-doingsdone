@@ -2,7 +2,7 @@
 
 require_once ('./root/db_utils.php');
 require_once ('./root/functions.php');
-
+require_once ('./root/mysql_helper.php');
 
 
 $task_filter = $_GET["tasks-switch"] ?? "";

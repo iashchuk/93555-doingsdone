@@ -105,3 +105,12 @@ function change_status($connect, $task_id, $user_id) {
     $result = mysqli_query($connect, $sql);
     return $result;
 }
+
+function search_tasks($connect, $search) {
+    $sql = 'SELECT * FROM tasks
+            WHERE user_id = '.$_SESSION['user']['id'].' AND MATCH (title) AGAINST (?)';
+    $stmt = db_get_prepare_stmt($connect, $sql, [$search]);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return $result;
+}
