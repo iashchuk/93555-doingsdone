@@ -7,6 +7,7 @@ require_once ('./root/db_connect.php');
 require_once ('./root/db_queries.php');
 require_once ('./root/db_data.php');
 require_once ('./root/db_utils.php');
+require_once ('./filter.php');
 
 $body_background = 'body-background';
 $sql_projects = get_user_project_query($user_id);
@@ -36,15 +37,11 @@ if (!isset($_SESSION['user']))  {
         ]
     );
 } else {
+
     $content_side = include_template('content-side', [
         'projects' => $projects,
         'tasks' => $tasks,
         'active_tasks' => $active_tasks,
-    ]);
-
-    $page_content = include_template('index', [
-        'show_complete_tasks' => $show_complete_tasks,
-        'tasks' => $tasks,
     ]);
 
     $layout_content = include_template('layout', [

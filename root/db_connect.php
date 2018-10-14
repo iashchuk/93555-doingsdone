@@ -17,4 +17,5 @@ $user_id = 0;
 
 if (isset($_SESSION['user'])) {
     $user_id = $_SESSION['user']['id'];
+    $auth_author = $_SESSION['user']['name'];
 }
