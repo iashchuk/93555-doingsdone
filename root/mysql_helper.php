@@ -29,6 +29,10 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
                 $type = 'd';
             }
 
+            else if (is_null($value)) {
+                $type = 'b';
+            }
+
             if ($type) {
                 $types .= $type;
                 $stmt_data[] = $value;
