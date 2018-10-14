@@ -65,8 +65,8 @@ function check_date($date, $format= 'Y-m-d'){
   function auth_user($connect, $auth) {
     $email = mysqli_real_escape_string($connect, $auth['email']);
     $sql = "SELECT * FROM users WHERE email = '$email'";
-    $res = mysqli_query($connect, $sql);
-    $session_array = $res ? mysqli_fetch_array($res, MYSQLI_ASSOC) : null;
+    $result = mysqli_query($connect, $sql);
+    $session_array = $result ? mysqli_fetch_array($result, MYSQLI_ASSOC) : null;
     return $session_array;
 }
 
@@ -74,6 +74,28 @@ function check_date($date, $format= 'Y-m-d'){
 function add_task($new_task, $connect, $date, $file, $user) {
     $sql = "INSERT INTO tasks (title, deadline, file, project_id, user_id) VALUES (?, ?, ?, ?, ?)";
     $stmt = db_get_prepare_stmt($connect, $sql, [$new_task['name'], $date, $file, $new_task['project'], $user]);
-    $res = mysqli_stmt_execute($stmt);
-     return $res;
+    $result = mysqli_stmt_execute($stmt);
+    return $result;
+}
+
+function add_project($new_project, $connect, $author, $user) {
+    $sql = 'INSERT INTO projects (title, author, user_id) VALUES (?, ?, ?)';
+    $stmt = db_get_prepare_stmt($connect, $sql, [$new_project, $author, $user]);
+    $result = mysqli_stmt_execute($stmt);
+    return $result;
+}
+
+
+function set_filter($filter_item) {
+    $data["tasks-switch"] = $filter_item;
+    $path = pathinfo("index.php", PATHINFO_BASENAME);
+    $query = http_build_query($data);
+    $url = "/" . $path . "?" . $query;
+    return $url;
+}
+
+function date_filter($date, $user_id) {
+    $sql = "SELECT *, date_format(deadline, '%d.%m.%Y') AS deadline
+            FROM tasks WHERE user_id = $user_id $date";
+    return $sql;
 }
