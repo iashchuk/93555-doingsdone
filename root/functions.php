@@ -85,7 +85,6 @@ function add_project($new_project, $connect, $author, $user) {
     return $result;
 }
 
-
 function set_filter($filter_item) {
     $data["tasks-switch"] = $filter_item;
     $path = pathinfo("index.php", PATHINFO_BASENAME);
@@ -98,4 +97,11 @@ function date_filter($date, $user_id) {
     $sql = "SELECT *, date_format(deadline, '%d.%m.%Y') AS deadline
             FROM tasks WHERE user_id = $user_id $date";
     return $sql;
+}
+
+function change_status($connect, $task_id, $user_id) {
+    $sql = "UPDATE tasks SET status = NOT status
+            WHERE user_id = $user_id AND id = $task_id";
+    $result = mysqli_query($connect, $sql);
+    return $result;
 }

@@ -6,8 +6,16 @@ require_once ('./root/db_connect.php');
 require_once ('./root/db_queries.php');
 require_once ('./root/db_data.php');
 
-$filter = $_GET["tasks-switch"] ?? "";
 
+if (isset($_GET["task_id"])) {
+    $task_id = intval($_GET["task_id"]) ?? "";
+     if ($task_id) {
+        $result = change_status($connect, $task_id, $user_id);
+        header("Location: index.php");
+    }
+}
+
+$filter = $_GET["tasks-switch"] ?? "";
 
 if (isset($_GET["tasks-switch"])) {
 
@@ -39,7 +47,6 @@ if (isset($_GET["tasks-switch"])) {
         $error = mysqli_error($connect);
         die('Ошибка при выполнении запроса к Базе данных');
     } else {
-
         $tasks = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 }
