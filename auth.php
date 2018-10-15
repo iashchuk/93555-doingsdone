@@ -45,15 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-} else {
+}
+
+else {
     if (isset($_SESSION['user'])) {
-        $page_content = include_template(
-            'index',
-            [
-                'tasks' => $tasks,
-                'show_complete_tasks' => $show_complete_tasks
-            ]
-        );
+        header('Location: ../index.php');
     }
 }
 

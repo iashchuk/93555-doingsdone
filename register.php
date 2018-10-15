@@ -46,6 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+else {
+    if (isset($_SESSION['user'])) {
+        header('Location: ../index.php');
+    }
+}
+
 
 $container_with_sidebar = 'container--with-sidebar';
 
