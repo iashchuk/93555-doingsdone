@@ -1,15 +1,14 @@
 <?php
-require_once ('./root/config.php');
-require_once ('./root/constants.php');
-require_once ('./root/functions.php');
-require_once ('./root/db_connect.php');
-require_once ('./root/db_queries.php');
-require_once ('./root/db_data.php');
+require_once ('./config.php');
+require_once ('./src/functions.php');
+require_once ('./src/db_connect.php');
+require_once ('./src/db_queries.php');
+require_once ('./src/db_data.php');
 
 $value = [];
 $errors = [];
 
- if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new_project = $_POST['project'];
     $new_project_title = $new_project['title'];
 
@@ -25,7 +24,7 @@ $errors = [];
 
     if (!count($errors) && isset($_SESSION['user'])) {
 
-        $result = add_project($new_project_title, $connect, $auth_author, $user_id);
+        $result = add_project($new_project_title, $connect, $user_id);
 
         if ($result) {
             header('Location: /');
@@ -38,10 +37,13 @@ $errors = [];
 }
 
 
-$page_content = include_template('add-project', [
-    'value' => $value,
-    'errors' => $errors
-]);
+$page_content = include_template(
+    'add-project',
+    [
+        'value' => $value,
+        'errors' => $errors
+    ]
+);
 
 $content_side = include_template(
     'content-side',
@@ -65,4 +67,6 @@ $layout_content = include_template(
         'title' => 'Дела в порядке'
     ]
 );
+
+
  print($layout_content);

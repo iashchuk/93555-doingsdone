@@ -1,16 +1,15 @@
 <?php
-require_once ('./root/config.php');
-require_once ('./root/constants.php');
-require_once ('./root/functions.php');
-require_once ('./root/db_connect.php');
-require_once ('./root/db_queries.php');
-require_once ('./root/db_data.php');
+require_once ('./config.php');
+require_once ('./src/functions.php');
+require_once ('./src/db_connect.php');
+require_once ('./src/db_queries.php');
+require_once ('./src/db_data.php');
 
 
 $errors = [];
 $tpl_data = [];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $auth = $_POST['auth'];
     $required = ['email', 'password'];
@@ -28,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $user = auth_user($connect,  $auth);
 
-    if (empty($errors) and $user) {
+    if (empty($errors) && $user) {
         if (password_verify($auth['password'], $user['password'])) {
             $_SESSION['user'] = $user;
         } else {
@@ -46,17 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-} else {
+}
+
+else {
     if (isset($_SESSION['user'])) {
-        $page_content = include_template(
-            'index',
-            [
-                'tasks' => $tasks,
-                'show_complete_tasks' => $show_complete_tasks
-            ]
-        );
+        header('Location: ../index.php');
     }
-    // Нужен ли else, вроде и так все ОК
 }
 
 

@@ -1,17 +1,16 @@
 <?php
 
-require_once ('./root/config.php');
-require_once ('./root/constants.php');
-require_once ('./root/functions.php');
-require_once ('./root/db_connect.php');
-require_once ('./root/db_queries.php');
-require_once ('./root/db_data.php');
+require_once ('./config.php');
+require_once ('./src/functions.php');
+require_once ('./src/db_connect.php');
+require_once ('./src/db_queries.php');
+require_once ('./src/db_data.php');
 
 
 $errors = [];
 $tpl_data = [];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $register = $_POST['signup'];
     $required = ['email', 'password', 'name'];
@@ -47,12 +46,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
+else {
+    if (isset($_SESSION['user'])) {
+        header('Location: ../index.php');
+    }
+}
+
 
 $container_with_sidebar = 'container--with-sidebar';
 
-$content_side = include_template('content-side', [
-    'projects' => $projects,
-]);
+$content_side = include_template(
+    'content-side',
+    [
+        'projects' => $projects,
+    ]
+);
 
 $page_content = include_template(
     'register',

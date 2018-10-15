@@ -1,25 +1,17 @@
 <?php
 
-require_once ('./root/config.php');
-require_once ('./root/constants.php');
-require_once ('./root/functions.php');
-require_once ('./root/db_connect.php');
-require_once ('./root/db_queries.php');
-require_once ('./root/db_data.php');
+require_once ('./config.php');
+require_once ('./src/functions.php');
+require_once ('./src/db_connect.php');
+require_once ('./src/db_queries.php');
+require_once ('./src/db_data.php');
 
 
-$sql_projects = get_user_project_query($user_id);
-$projects = db_select($connect, $sql_projects);
-
-$sql_tasks = get_user_tasks_query($user_id);
-$tasks = db_select($connect, $sql_tasks);
-
-$active_tasks = $tasks;
 $new_task['name'] = '';
 $errors = [];
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $new_task = $_POST;
 
@@ -27,12 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['name'] = 'Укажите название задачи';
     }
 
+    if (empty($new_task['project'])) {
+          $new_task['project'] = NULL;
+       } elseif (!in_array($new_task['project'], array_column($projects, 'id'))) {
+        $errors['project'] = 'Такого проекта не существует';
+    }
+
     $file = false;
 
-    if (isset($_FILES['preview'])) {
+    if (!empty($_FILES['preview']['name'])) {
         $file_name = $_FILES['preview']['name'];
         $file_path = __DIR__ . '/uploads/';
-        $file_url = '/uploads/' . $file_name;
+        $file_url = $file_name;
         $file = true;
     }
 
@@ -40,12 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)) {
         $new_task_name = $new_task['name'];
         if ($file) {
-            $new_task_file = $file_path . $file_name;
+            $new_task_file = $file_url;
         } else {
             $new_task_file = '';
         }
 
-        $new_task_project = $new_task['project'];
 
         $new_task_date = $new_task['date'];
 
@@ -55,9 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errors['date'] = 'Введите дату в формате дд.мм.гггг';
         }
 
-        $sql = "INSERT INTO tasks  (created, title, file, deadline, user_id, project_id) VALUE (NOW(), ?, ?, ?, ?, ?)";
-        $stmt = db_get_prepare_stmt($connect, $sql, [$new_task_name, $new_task_file, $new_task_date, $user_id,  $new_task_project]);
-        $insert_result = mysqli_stmt_execute($stmt);
+        $insert_result = add_task($new_task, $connect, $new_task_date, $new_task_file, $user_id);
 
 
         if ($insert_result) {
@@ -71,7 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 $content_side = include_template(
-    'content-side', [
+    'content-side',
+    [
         'projects' => $projects,
         'tasks' => $tasks,
         'active_tasks' => $active_tasks,

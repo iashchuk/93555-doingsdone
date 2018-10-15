@@ -7,7 +7,6 @@ USE `doingsdone_manual`;
 CREATE TABLE IF NOT EXISTS `projects` (
   `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   `title` CHAR(64) NOT NULL,
-  `author` CHAR(64) NOT NULL,
   `user_id` INT NOT NULL
 ) ENGINE = INNODB CHARACTER SET = utf8;
 
@@ -20,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `file` VARCHAR(255) DEFAULT NULL,
   `deadline` DATETIME DEFAULT NULL,
   `user_id` INT NOT NULL,
-  `project_id` INT NOT NULL
+  `project_id` INT
 
 ) ENGINE = INNODB CHARACTER SET = utf8;
 
@@ -35,3 +34,4 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 CREATE UNIQUE INDEX `email` ON `users`(`email`);
 CREATE INDEX `task` ON `tasks`(`title`);
+CREATE FULLTEXT INDEX `tasks_search` ON `tasks`(`title`);
