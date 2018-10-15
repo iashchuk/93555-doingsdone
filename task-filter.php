@@ -1,8 +1,8 @@
 <?php
 
-require_once ('./root/db_utils.php');
-require_once ('./root/functions.php');
-require_once ('./root/mysql_helper.php');
+require_once ('./src/db_utils.php');
+require_once ('./src/functions.php');
+require_once ('./src/mysql_helper.php');
 
 
 $task_filter = $_GET["tasks-switch"] ?? "";

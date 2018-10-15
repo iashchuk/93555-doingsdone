@@ -1,6 +1,6 @@
 <?php
 
-require_once ('./root/functions.php');
+require_once ('./src/functions.php');
 
 
 if (isset($_GET["task_id"])) {

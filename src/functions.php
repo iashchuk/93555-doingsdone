@@ -1,6 +1,6 @@
 <?php
 
-require_once ('./root/mysql_helper.php');
+require_once ('./src/mysql_helper.php');
 
 function include_template($name, $data) {
     $name = TEMPLATE_PATH . $name . TEMPLATE_EXTENSION;
@@ -94,21 +94,25 @@ function set_filter($filter_item) {
 }
 
 function date_filter($date, $user_id) {
+    intval($user_id);
     $sql = "SELECT *, date_format(deadline, '%d.%m.%Y') AS deadline
             FROM tasks WHERE user_id = $user_id $date";
     return $sql;
 }
 
 function change_status($connect, $task_id, $user_id) {
+    intval($user_id);
+    intval($task_id);
     $sql = "UPDATE tasks SET status = NOT status
             WHERE user_id = $user_id AND id = $task_id";
     $result = mysqli_query($connect, $sql);
     return $result;
 }
 
-function search_tasks($connect, $search) {
+function search_tasks($connect, $search, $user_id) {
+    intval($user_id);
     $sql = 'SELECT * FROM tasks
-            WHERE user_id = '.$_SESSION['user']['id'].' AND MATCH (title) AGAINST (?)';
+            WHERE user_id = '.$user_id.' AND MATCH (title) AGAINST (?)';
     $stmt = db_get_prepare_stmt($connect, $sql, [$search]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);

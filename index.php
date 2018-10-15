@@ -1,12 +1,12 @@
 <?php
 
-require_once ('./root/config.php');
-require_once ('./root/constants.php');
-require_once ('./root/functions.php');
-require_once ('./root/db_connect.php');
-require_once ('./root/db_queries.php');
-require_once ('./root/db_data.php');
-require_once ('./root/db_utils.php');
+require_once ('./config.php');
+require_once ('./src/constants.php');
+require_once ('./src/functions.php');
+require_once ('./src/db_connect.php');
+require_once ('./src/db_queries.php');
+require_once ('./src/db_data.php');
+require_once ('./src/db_utils.php');
 require_once ('./task-filter.php');
 require_once ('./task-status.php');
 require_once ('./task-search.php');

@@ -1,5 +1,5 @@
 <?php
-require_once ('./root/db_utils.php');
+require_once ('./src/db_utils.php');
 
 $sql_projects = get_user_project_query($user_id);
 $projects = db_select($connect, $sql_projects);

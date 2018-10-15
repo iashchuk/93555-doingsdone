@@ -12,7 +12,7 @@
                     isset($errors['used_email']) ||
                     isset($errors['invaild_email'])): ?> form__input--error"
         <?php endif; ?>
-        type="text" name="signup[email]" id="email" value="<?=$values['email'] ?? ''; ?>" placeholder="Введите e-mail">
+        type="text" name="signup[email]" id="email" value="<?=strip_tags($values['email']); ?? ''; ?>" placeholder="Введите e-mail">
 
         <?php if (isset($errors['email'])): ?>
             <p class="form__message">

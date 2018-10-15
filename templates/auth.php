@@ -6,7 +6,7 @@
 
         <input class="form__input
             <?php if (isset($errors['invaild_email']) || isset($errors['email'])): ?> form__input--error<?php endif; ?>"
-            type="text" name="auth[email]" id="email" value="<?=$values['email'] ?? ''; ?>" placeholder="Введите e-mail">
+            type="text" name="auth[email]" id="email" value="<?=strip_tags($values['email']); ?? ''; ?>" placeholder="Введите e-mail">
 
             <?php if (isset($errors['email'])): ?>
                 <p class="form__message"><?=$errors['invaild_email'] ?? ''; ?></p>

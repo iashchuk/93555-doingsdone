@@ -9,7 +9,7 @@
 <div class="tasks-controls">
     <nav class="tasks-switch">
         <a href="<?= set_filter("all"); ?>" class="tasks-switch__item
-        <?php if ($task_filter === null || $task_filter == "all"): ?>tasks-switch__item--active<?php endif; ?>">Все задачи</a>
+        <?php if ($task_filter === null || $task_filter === "all"): ?>tasks-switch__item--active<?php endif; ?>">Все задачи</a>
 
         <a href="<?= set_filter("today"); ?>" class="tasks-switch__item
         <?php if ($task_filter === "today"): ?>tasks-switch__item--active<?php endif; ?>">Повестка дня</a>

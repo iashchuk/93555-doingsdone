@@ -1,10 +1,10 @@
 <?php
-require_once ('./root/config.php');
-require_once ('./root/constants.php');
-require_once ('./root/functions.php');
-require_once ('./root/db_connect.php');
-require_once ('./root/db_queries.php');
-require_once ('./root/db_data.php');
+require_once ('./config.php');
+require_once ('./src/constants.php');
+require_once ('./src/functions.php');
+require_once ('./src/db_connect.php');
+require_once ('./src/db_queries.php');
+require_once ('./src/db_data.php');
 
 
 $errors = [];
@@ -56,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]
         );
     }
-    // Нужен ли else, вроде и так все ОК
 }
 
 
