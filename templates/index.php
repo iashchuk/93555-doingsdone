@@ -31,7 +31,7 @@
 <?php if (!empty($tasks)): ?>
 <table class="tasks">
     <?php foreach ($tasks as $item): ?>
-    <?php if ($show_complete_tasks === 1 || !$item['status']): ?>
+    <?php if (($show_complete_tasks && $item['status']) || !$item['status']): ?>
     <tr class="tasks__item task
         <?=$item['status'] ? 'task--completed' : '' ?>
         <?=mark_task_important($item) ? 'task--important' : ''; ?>">
