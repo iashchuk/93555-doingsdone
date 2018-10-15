@@ -19,6 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['name'] = 'Укажите название задачи';
     }
 
+    if (empty($new_task['project'])) {
+          $new_task['project'] = NULL;
+       } elseif (!in_array($new_task['project'], array_column($projects, 'id'))) {
+        $errors['project'] = 'Такого проекта не существует';
+    }
+
     $file = false;
 
     if (!empty($_FILES['preview']['name'])) {
@@ -37,9 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $new_task_file = '';
         }
 
-       if (empty($new_task['project'])) {
-          $new_task['project'] = NULL;
-       }
 
         $new_task_date = $new_task['date'];
 
