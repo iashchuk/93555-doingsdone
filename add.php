@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_FILES['preview']['name'])) {
         $file_name = $_FILES['preview']['name'];
         $file_path = __DIR__ . '/uploads/';
-        $file_url = '/uploads/' . $file_name;
+        $file_url = $file_name;
         $file = true;
     }
 

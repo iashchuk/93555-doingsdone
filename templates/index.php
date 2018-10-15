@@ -44,7 +44,7 @@
         </td>
         <td class="task__file">
             <?php if (isset($item['file']) && $item['file'] !== ""): ?>
-                <a class="download-link" href="<?= $item['file'] ?>"><?=strip_tags($item['file']); ?></a>
+                <a class="download-link" href="<?= UPLOAD . $item['file'] ?>"><?=strip_tags($item['file']); ?></a>
             <?php endif; ?>
         </td>
         <td class="task__date">
