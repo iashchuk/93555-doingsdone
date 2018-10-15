@@ -12,8 +12,8 @@ VALUES
 /*Придумайте пару пользователей*/
 INSERT INTO users (created, email, name, password, contacts)
 VALUES
-      ('2018-09-17', '221box@list.ru', 'Виталий', 'qwerty', 'Moscow'),
-      ('2018-09-17', 'keks@htmlacademy.ru', 'Кекс', 'povelitel', 'HTML Academy');
+      ('2018-09-17', 'id93555@mail.ru', 'Виталий', '$10$N/bgOieTbrBDYWbAakD6Leue6.bLQ1S/MxfC1KvJyJlmaL6Qn0lsm', 'Moscow'),
+      ('2018-09-17', 'keks@htmlacademy.ru', 'Кекс', '$10$gKltkDdB.LhXrLf/7EGwGu2qgLfDzwGP3yXIvltLaYILeb3zpZ5JK', 'HTML Academy');
 
 /*Список задач*/
 INSERT INTO tasks (title, created, status, deadline, user_id, project_id)

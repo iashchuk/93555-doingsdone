@@ -2,6 +2,7 @@
 
 require_once ('./src/functions.php');
 
+$show_complete_tasks = 0;
 
 if (isset($_GET["task_id"])) {
     $task_id = intval($_GET["task_id"]) ?? "";

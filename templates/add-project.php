@@ -10,7 +10,7 @@
             <?php endif; ?>
             <input class="form__input
             <?php if (isset($errors["empty_project"]) || isset($errors["exist_project"])): ?>form__input--error
-            <?php endif; ?>" type="text" name="project[title]" id="name" value="<?=strip_tags($value['title']); ?? ""; ?>" placeholder="Введите название проекта">
+            <?php endif; ?>" type="text" name="project[title]" id="name" value="<?=$value['title'] ?? ""; ?>" placeholder="Введите название проекта">
         </div>
         <div class="form__row form__row--controls">
             <input class="button" type="submit" name="" value="Добавить">

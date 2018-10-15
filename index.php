@@ -1,7 +1,6 @@
 <?php
 
 require_once ('./config.php');
-require_once ('./src/constants.php');
 require_once ('./src/functions.php');
 require_once ('./src/db_connect.php');
 require_once ('./src/db_queries.php');

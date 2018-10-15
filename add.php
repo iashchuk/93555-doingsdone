@@ -1,7 +1,6 @@
 <?php
 
 require_once ('./config.php');
-require_once ('./src/constants.php');
 require_once ('./src/functions.php');
 require_once ('./src/db_connect.php');
 require_once ('./src/db_queries.php');
@@ -33,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $new_task_name = $new_task['name'];
         if ($file) {
-            $new_task_file = $file_path . $file_name;
+            $new_task_file = $file_url;
         } else {
             $new_task_file = '';
         }
