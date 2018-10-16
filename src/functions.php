@@ -92,3 +92,14 @@ function set_filter($filter_item) {
     $url = "/" . $path . "?" . $query;
     return $url;
 }
+
+/**
+ * Вывод ошибки при выполнении запроса
+ * @param mysqli $connect -- установка соединения
+ *
+ * @return string -- текст ошибки
+ */
+function show_mysql_error($connect) {
+    $error = mysqli_error($connect);
+    die('Ошибка при выполнении запроса к Базе данных');
+};

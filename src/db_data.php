@@ -1,5 +1,4 @@
 <?php
-require_once ('./src/db_utils.php');
 
 $result_projects = get_user_project_query($connect, $user_id);
 $projects = mysqli_fetch_all($result_projects, MYSQLI_ASSOC);
