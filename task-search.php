@@ -1,7 +1,6 @@
 <?php
 
 require_once ('./src/db_data.php');
-require_once ('./src/db_utils.php');
 require_once ('./src/functions.php');
 require_once ('./src/mysql_helper.php');
 
