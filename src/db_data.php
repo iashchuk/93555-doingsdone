@@ -1,26 +1,23 @@
 <?php
 require_once ('./src/db_utils.php');
 
-// $sql_projects = get_user_project_query($user_id);
-// $projects = db_select($connect, $sql_projects);
-
 $result_projects = get_user_project_query($connect, $user_id);
 $projects = mysqli_fetch_all($result_projects, MYSQLI_ASSOC);
 
-$sql_tasks = get_user_tasks_query($user_id);
-$tasks = db_select($connect, $sql_tasks);
+$result_tasks = get_user_tasks_query($connect, $user_id);
+$tasks = mysqli_fetch_all($result_tasks, MYSQLI_ASSOC);
 $active_tasks = $tasks;
 
 
 if (isset($_GET['id'])) {
     $select_project = $_GET['id'];
 
-    $sql_active_project = get_select_project_query($select_project);
-    $result = db_select($connect, $sql_active_project);
+    $result_active_project = get_select_project_query($connect, $select_project, $user_id);
+    $active_project = mysqli_fetch_all($result_active_project, MYSQLI_ASSOC);
 
-    if ($result) {
-        $sql_active_tasks = get_active_tasks_query($select_project);
-        $tasks = db_select($connect, $sql_active_tasks);
+    if ($active_project) {
+        $result_active_tasks = get_active_tasks_query($connect, $select_project, $user_id);
+        $tasks = mysqli_fetch_all($result_active_tasks, MYSQLI_ASSOC);
     }
     else  {
         http_response_code(404);

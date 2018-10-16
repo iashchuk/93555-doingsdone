@@ -28,14 +28,14 @@ function include_template($name, $data) {
  * Высчитывает количество задач в проекте
  *
  * @param array $array_tasks -- список задач
- * @param int $project -- проект
+ * @param int $project_id -- id проекта
  *
  * @return int $task_count -- количество задач
  */
-function get_count_tasks($array_tasks, $project) {
+function get_count_tasks($array_tasks, $project_id) {
     $task_count = 0;
     foreach ($array_tasks as $task) {
-        ($task['project_id'] === $project) ? $task_count++ : $task_count ;
+        (intval($task['project_id']) === $project_id) ? $task_count++ : $task_count ;
     }
     return $task_count;
 }
@@ -77,4 +77,18 @@ function set_date_format($date) {
  */
 function check_date($date, $format= 'Y-m-d'){
     return $date === date($format, strtotime($date));
+}
+
+/**
+ * Формирование ссылки для выбранного фильтра
+ * @param string $filter_item -- выбранный фильтр
+ *
+ * @return string -- полученная ссылка
+ */
+function set_filter($filter_item) {
+    $data["tasks-switch"] = $filter_item;
+    $path = pathinfo("index.php", PATHINFO_BASENAME);
+    $query = http_build_query($data);
+    $url = "/" . $path . "?" . $query;
+    return $url;
 }
