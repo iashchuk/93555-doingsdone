@@ -106,3 +106,13 @@ function set_filter($filter_item) {
     $url = "/" . $path . "?" . $query;
     return $url;
 }
+
+function get_expire_tasks($connect) {
+    $sql = "SELECT * FROM tasks
+            JOIN users ON tasks.user_id = users.id
+            WHERE status = 0
+            AND deadline >= CURRENT_TIMESTAMP
+            AND deadline <= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL +1 HOUR);";
+    $result = mysqli_query($connect, $sql);
+    return $result;
+}
