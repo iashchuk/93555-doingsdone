@@ -1,8 +1,11 @@
 <?php
 require_once ('./src/db_utils.php');
 
-$sql_projects = get_user_project_query($user_id);
-$projects = db_select($connect, $sql_projects);
+// $sql_projects = get_user_project_query($user_id);
+// $projects = db_select($connect, $sql_projects);
+
+$result_projects = get_user_project_query($connect, $user_id);
+$projects = mysqli_fetch_all($result_projects, MYSQLI_ASSOC);
 
 $sql_tasks = get_user_tasks_query($user_id);
 $tasks = db_select($connect, $sql_tasks);

@@ -1,11 +1,24 @@
 <?php
 
+/**
+ * Вывод ошибки при выполнении запроса
+ * @param mysqli $connect -- установка соединения
+ *
+ * @return string -- текст ошибки
+ */
 function show_mysql_error($connect) {
     $error = mysqli_error($connect);
     die('Ошибка при выполнении запроса к Базе данных');
 };
 
 
+/**
+ * Функция помощник для записи данных
+ * @param mysqli $connect -- установка соединения
+ * @param string $query -- текст запроса
+ *
+ * @return bool -- результат запроса
+ */
 function db_insert($connect, $query) {
     $result = true;
     if ($connect === false) {
@@ -24,6 +37,13 @@ function db_insert($connect, $query) {
 };
 
 
+/**
+ * Функция помощник для получения данных
+ * @param mysqli $connect -- установка соединения
+ * @param string $query -- текст запроса
+ *
+ * @return array|bool -- результат запроса
+ */
  function db_select($connect, $query) {
     $result = null;
     if ($connect === false) {
