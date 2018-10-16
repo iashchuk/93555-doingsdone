@@ -1,0 +1,15 @@
+{
+  "name": "iashchuk/doingsdone",
+  "description": "The manager that helps you achieve your goals",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "swiftmailer/swiftmailer": "^6.1"
+  },
+  "authors": [
+    {
+      "name": "Vitalii Iashchuk",
+      "email": "id93555@mail.ru"
+    }
+  ]
+}

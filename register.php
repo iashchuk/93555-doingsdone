@@ -22,7 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $res_check = check_email($connect, $register);
-    if (mysqli_num_rows($res_check) > 0) {
+
+
+
+    if (mysqli_num_rows($res_check)) {
         $errors['used_email'] = 'Пользователь с этим email уже зарегистрирован';
     }
 
