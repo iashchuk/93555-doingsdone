@@ -25,7 +25,7 @@ function get_count_tasks($array_tasks, $project) {
 }
 
 function mark_task_important ($task) {
-    if ($task['deadline'] === null) {
+    if (!isset($task['deadline'])) {
         return false;
     }
 
