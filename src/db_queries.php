@@ -10,7 +10,7 @@ require_once ('./src/mysql_helper.php');
  * @return array|null -- массив задач
  */
 function get_user_project_query($connect, $user_id) {
-    $sql_projects = 'SELECT `id`, `title` FROM projects WHERE user_id = ?';
+    $sql_projects = 'SELECT `id`, `title` FROM `projects` WHERE user_id = (?)';
     $stmt = db_get_prepare_stmt($connect, $sql_projects, [$user_id]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -27,7 +27,7 @@ function get_user_project_query($connect, $user_id) {
  * @return int -- id проекта
  */
 function get_select_project_query($connect, $project_id, $user_id) {
-    $sql_active_project = 'SELECT `id`, `title` FROM projects WHERE `id` = ? AND `user_id` = ?';
+    $sql_active_project = 'SELECT `id`, `title` FROM `projects` WHERE `id` = (?) AND `user_id` = (?)';
     $stmt = db_get_prepare_stmt($connect, $sql_active_project, [$project_id, $user_id]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -43,7 +43,7 @@ function get_select_project_query($connect, $project_id, $user_id) {
  * @return array|null -- массив задач
  */
 function get_user_tasks_query($connect, $user_id) {
-    $sql_tasks = 'SELECT `id`, `title`, `created`, `status`, `file`, `deadline`, `user_id`, `project_id` FROM tasks WHERE `user_id` = ?';
+    $sql_tasks = 'SELECT `id`, `title`, `created`, `status`, `file`, `deadline`, `user_id`, `project_id` FROM `tasks` WHERE `user_id` = (?)';
     $stmt = db_get_prepare_stmt($connect, $sql_tasks, [$user_id]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -77,7 +77,7 @@ function get_active_tasks_query($connect, $project_id, $user_id) {
  */
  function check_email($connect, $register) {
     $email = mysqli_real_escape_string($connect, $register['email']);
-    $sql = "SELECT id FROM users WHERE email = ?";
+    $sql = "SELECT `id` FROM `users` WHERE `email` = (?)";
     $stmt = db_get_prepare_stmt($connect, $sql, [$email]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -94,7 +94,7 @@ function get_active_tasks_query($connect, $project_id, $user_id) {
  */
  function register_user($connect, $register) {
     $password = password_hash($register['password'], PASSWORD_DEFAULT);
-    $sql = 'INSERT INTO users (created, email, name, password, contacts) VALUES (NOW(), ?, ?, ?, "")';
+    $sql = 'INSERT INTO `users` (`created`, `email`, `name`, `password`, `contacts`) VALUES (NOW(), ?, ?, ?, "")';
     $stmt = db_get_prepare_stmt($connect, $sql, [$register['email'], $register['name'], $password]);
     $result = mysqli_stmt_execute($stmt);
     return $result;
@@ -110,7 +110,7 @@ function get_active_tasks_query($connect, $project_id, $user_id) {
  */
  function auth_user($connect, $auth) {
     $email = mysqli_real_escape_string($connect, $auth['email']);
-    $sql = "SELECT * FROM users WHERE email = ?";
+    $sql = "SELECT * FROM `users` WHERE `email` = (?)";
     $stmt = db_get_prepare_stmt($connect, $sql, [$email]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
@@ -130,7 +130,7 @@ function get_active_tasks_query($connect, $project_id, $user_id) {
  * @return bool -- возвращает ответ об успехе или неудаче
  */
 function add_task($new_task, $connect, $date, $file, $user_id) {
-    $sql = 'INSERT INTO tasks (created, title, deadline, file, project_id, user_id) VALUES (NOW(), ?, ?, ?, ?, ?)';
+    $sql = 'INSERT INTO `tasks` (`created`, `title`, `deadline`, `file`, `project_id`, `user_id`) VALUES (NOW(), ?, ?, ?, ?, ?)';
     $stmt = db_get_prepare_stmt($connect, $sql, [$new_task['name'], $date, $file, $new_task['project'], $user_id]);
     $result = mysqli_stmt_execute($stmt);
     return $result;
@@ -146,7 +146,7 @@ function add_task($new_task, $connect, $date, $file, $user_id) {
  * @return bool -- результат добавления проекта
  */
 function add_project($new_project, $connect, $user_id) {
-    $sql = 'INSERT INTO projects (title, user_id) VALUES (?, ?)';
+    $sql = 'INSERT INTO `projects` (`title`, `user_id`) VALUES (?, ?)';
     $stmt = db_get_prepare_stmt($connect, $sql, [$new_project, $user_id]);
     $result = mysqli_stmt_execute($stmt);
     return $result;
@@ -155,16 +155,19 @@ function add_project($new_project, $connect, $user_id) {
 
 /**
  * Получение запроса в базу данных для фильтра задач по времени
+ * @param mysqli $connect -- установка соединения
  * @param string $date -- период фильтрации
  * @param int $user_id -- текущий пользователь
  *
  * @return string -- sql запрос
  */
-function date_filter($date, $user_id) {
-    intval($user_id);
-    $sql = "SELECT *, date_format(deadline, '%d.%m.%Y') AS deadline
-            FROM tasks WHERE user_id = $user_id $date";
-    return $sql;
+ function date_filter($connect, $date, $user_id) {
+    $date = mysqli_real_escape_string($connect, $date);
+    $sql = "SELECT *, date_format(deadline, '%d.%m.%Y') AS `deadline` FROM `tasks` WHERE user_id = (?) $date";
+    $stmt = db_get_prepare_stmt($connect, $sql, [$user_id]);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    return $result;
 }
 
 
@@ -177,13 +180,14 @@ function date_filter($date, $user_id) {
  * @return bool|mysqli_result -- статус задачи
  */
 function change_status($connect, $task_id, $user_id) {
-    intval($user_id);
-    intval($task_id);
-    $sql = 'UPDATE tasks SET status = NOT status
-            WHERE user_id = $user_id AND id = $task_id';
-    $result = mysqli_query($connect, $sql);
+    $sql = 'UPDATE `tasks` SET status = NOT status
+            WHERE `user_id` = (?) AND `id` = (?)';
+    $stmt = db_get_prepare_stmt($connect, $sql, [$user_id, $task_id]);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     return $result;
 }
+
 
 
 /**
@@ -195,10 +199,9 @@ function change_status($connect, $task_id, $user_id) {
  * @return bool|mysqli_result -- результат поиска
  */
 function search_tasks($connect, $search, $user_id) {
-    intval($user_id);
-    $sql = 'SELECT * FROM tasks
-            WHERE user_id = '.$user_id.' AND MATCH (title) AGAINST (?)';
-    $stmt = db_get_prepare_stmt($connect, $sql, [$search]);
+    $sql = 'SELECT * FROM `tasks`
+            WHERE `user_id` = (?) AND MATCH (title) AGAINST (?)';
+    $stmt = db_get_prepare_stmt($connect, $sql, [$user_id, $search]);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     return $result;
@@ -212,11 +215,13 @@ function search_tasks($connect, $search, $user_id) {
  * @return bool|mysqli_result -- предстоящие задачи
  */
 function get_expire_tasks($connect) {
-    $sql = 'SELECT * FROM tasks
-            JOIN users ON tasks.user_id = users.id
+    $sql = 'SELECT * FROM `tasks`
+            JOIN `users` ON tasks.user_id = users.id
             WHERE status = 0
-            AND deadline >= CURRENT_TIMESTAMP
-            AND deadline <= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 1 HOUR);';
-    $result = mysqli_query($connect, $sql);
+            AND `deadline` >= CURRENT_TIMESTAMP
+            AND `deadline` <= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 1 HOUR);';
+    $stmt = db_get_prepare_stmt($connect, $sql);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
     return $result;
 }
